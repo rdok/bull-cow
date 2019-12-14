@@ -23,7 +23,7 @@ protected:
 	{
 		PrintLine(FString::Printf(Fmt, Args...));
 	}
-	void ClearScreen() const;
+		void ClearScreen() const;
 private:
 	class UTerminal* Terminal;
 };
