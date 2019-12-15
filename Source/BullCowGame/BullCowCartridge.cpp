@@ -1,25 +1,31 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 #include "BullCowCartridge.h"
-#include <string>
 
-void UBullCowCartridge::BeginPlay() // When the game starts
+void UBullCowCartridge::BeginPlay()
 {
     Super::BeginPlay();
 
     PrintLine(TEXT("Pioneer, the first satellite launched."));
     PrintLine(TEXT("What was the launch year of Pioneer probe?"));
+
+    InitGuessParams();
 }
 
-void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
+void UBullCowCartridge::OnInput(const FString &Input)
 {
-    FString Isogram = TEXT("spacecraft");
+    FString response = this->GetIsogramValidationMessage(Input);
 
     ClearScreen();
     PrintLine(Input);
-
-    FString message = Input == Isogram 
-        ? TEXT("correct")
-        : TEXT("incorrect");
-
-    PrintLine(message);
+    PrintLine(response);
 }
+
+void UBullCowCartridge::InitGuessParams()
+{
+    this->IsoGram = "spacecraft";
+    this->Attempts = 3;
+}
+
+FString UBullCowCartridge::GetIsogramValidationMessage(FString Input)
+{
+    return Input == IsoGram ? TEXT("correct") : TEXT("incorrect");
+};

@@ -6,16 +6,21 @@
 #include "Console/Cartridge.h"
 #include "BullCowCartridge.generated.h"
 
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class BULLCOWGAME_API UBullCowCartridge : public UCartridge
 {
+
 	GENERATED_BODY()
 
 	public:
+	void InitGuessParams();
+
 	virtual void BeginPlay() override;
 	virtual void OnInput(const FString& Input) override;
+	FString GetIsogramValidationMessage(FString Input);
 
-	// Your declarations go below!
 	private:
-	
+	FString IsoGram;
+	int32 Attempts;
 };
