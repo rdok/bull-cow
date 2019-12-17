@@ -1,31 +1,38 @@
 #include "BullCowCartridge.h"
+#include <string>
 
 void UBullCowCartridge::BeginPlay()
 {
     Super::BeginPlay();
 
-    PrintLine(TEXT("Pioneer, the first satellite launched."));
-    PrintLine(TEXT("What was the launch year of Pioneer probe?"));
+    PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
 
     InitGuessParams();
 }
 
-void UBullCowCartridge::OnInput(const FString &Input)
+void UBullCowCartridge::OnInput(const FString &Guess)
 {
-    FString response = this->GetIsogramValidationMessage(Input);
+    FString response = this->ValidateGuess(Guess);
 
     ClearScreen();
-    PrintLine(Input);
+    PrintLine(Guess);
     PrintLine(response);
 }
 
 void UBullCowCartridge::InitGuessParams()
 {
-    this->IsoGram = "spacecraft";
+    this->Secret = "Pioneer";
     this->Attempts = 3;
 }
 
-FString UBullCowCartridge::GetIsogramValidationMessage(FString Input)
+FString UBullCowCartridge::ValidateGuess(FString Guess)
 {
-    return Input == IsoGram ? TEXT("correct") : TEXT("incorrect");
-};
+    const int32 secretLength = this->Secret.Len();
+
+    if (Guess.Len() != secretLength)
+    {
+        return TEXT("Invalid length. Hint: length is %s", ToText(secretLength));
+    }
+
+    return Guess == this->Secret ? TEXT("Correct") : TEXT("Wrong");
+}

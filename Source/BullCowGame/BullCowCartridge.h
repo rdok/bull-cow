@@ -18,9 +18,10 @@ class BULLCOWGAME_API UBullCowCartridge : public UCartridge
 
 	virtual void BeginPlay() override;
 	virtual void OnInput(const FString& Input) override;
-	FString GetIsogramValidationMessage(FString Input);
+
+	FString ValidateGuess(FString Response);
 
 	private:
-	FString IsoGram;
+	FString Secret;
 	int32 Attempts;
 };
