@@ -5,21 +5,41 @@ void UBullCowCartridge::BeginPlay()
 {
     Super::BeginPlay();
 
-    PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
+    SetupGuessParams();
 
-    InitGuessParams();
+    PrintWelcomeMessage();
 }
 
 void UBullCowCartridge::OnInput(const FString &Guess)
 {
-    FString response = this->ValidateGuess(Guess);
+    FString validationMessage = this->ValidateGuess(Guess);
 
     ClearScreen();
     PrintLine(Guess);
-    PrintLine(response);
+
+    if(! validationMessage.IsEmpty()) {
+        PrintLine(validationMessage);
+        this->Attempts--;
+
+        FString message = FString::Printf(
+            TEXT("Attempts left: %i"),
+            this->Attempts
+        );
+
+        PrintLine(message);
+
+        return;
+    }
+
+    FString message = FString::Printf(
+        TEXT("Nice! Indeed, the answer is %s"),
+        *this->Secret
+    );
+
+    PrintLine(message);
 }
 
-void UBullCowCartridge::InitGuessParams()
+void UBullCowCartridge::SetupGuessParams()
 {
     this->Secret = "Pioneer";
     this->Attempts = 3;
@@ -31,8 +51,15 @@ FString UBullCowCartridge::ValidateGuess(FString Guess)
 
     if (Guess.Len() != secretLength)
     {
-        return TEXT("Invalid length. Hint: length is %s", ToText(secretLength));
+        return FString::Printf(
+            TEXT("Invalid length. Hint: length is %i"),
+            secretLength
+        );
     }
 
-    return Guess == this->Secret ? TEXT("Correct") : TEXT("Wrong");
+    return {};
+}
+
+void  UBullCowCartridge::PrintWelcomeMessage() {
+    PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
 }
