@@ -18,22 +18,27 @@ void UBullCowCartridge::OnInput(const FString &Guess)
     PrintLine(Guess);
 
     if(! validationMessage.IsEmpty()) {
-        PrintLine(validationMessage);
-        this->Attempts--;
-
-        FString message = FString::Printf(
-            TEXT("Attempts left: %i"),
-            this->Attempts
-        );
-
-        PrintLine(message);
-
+        this->handleInvalidGuess(validationMessage);
         return;
     }
 
     FString message = FString::Printf(
         TEXT("Nice! Indeed, the answer is %s"),
         *this->Secret
+    );
+
+    PrintLine(message);
+}
+
+void UBullCowCartridge::handleInvalidGuess(FString validationMessage) {
+
+    PrintLine(validationMessage);
+
+    this->Attempts--;
+
+    FString message = FString::Printf(
+        TEXT("Attempts left: %i"),
+        this->Attempts
     );
 
     PrintLine(message);

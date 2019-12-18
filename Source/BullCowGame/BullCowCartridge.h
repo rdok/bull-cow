@@ -16,6 +16,7 @@ class BULLCOWGAME_API UBullCowCartridge : public UCartridge
 	public:
 	void SetupGuessParams();
 	void PrintWelcomeMessage();
+	void handleInvalidGuess(FString message);
 
 	virtual void BeginPlay() override;
 	virtual void OnInput(const FString& Input) override;
