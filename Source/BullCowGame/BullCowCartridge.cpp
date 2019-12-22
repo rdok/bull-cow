@@ -5,49 +5,72 @@ void UBullCowCartridge::BeginPlay()
 {
     Super::BeginPlay();
 
-    SetupGuessParams();
-
-    PrintWelcomeMessage();
+    SetupGuessingGame();
 }
 
 void UBullCowCartridge::OnInput(const FString &Guess)
+{
+    PrintLine(TEXT("" + this->Attempts));
+
+    if (!this->GameHasEnded && this->Attempts == 0)
+    {
+        return this->EndGame();
+    }
+
+    if (this->GameHasEnded)
+    {
+        return SetupGuessingGame();
+    }
+
+    return HandleGuessingAttempt(Guess);
+}
+
+void UBullCowCartridge::HandleGuessingAttempt(FString Guess)
 {
     FString validationMessage = this->ValidateGuess(Guess);
 
     ClearScreen();
     PrintLine(Guess);
 
-    if(! validationMessage.IsEmpty()) {
-        this->handleInvalidGuess(validationMessage);
+    if (!validationMessage.IsEmpty())
+    {
+        this->HandleInvalidGuess(validationMessage);
         return;
     }
 
+    this->ResetAttempts();
+
     FString message = FString::Printf(
         TEXT("Nice! Indeed, the answer is %s"),
-        *this->Secret
-    );
+        *this->Secret);
 
     PrintLine(message);
 }
 
-void UBullCowCartridge::handleInvalidGuess(FString validationMessage) {
-
+void UBullCowCartridge::HandleInvalidGuess(FString validationMessage)
+{
     PrintLine(validationMessage);
 
     this->Attempts--;
 
+    if(this->Attempts < 0) {
+        return this->EndGame();
+    }
+
     FString message = FString::Printf(
         TEXT("Attempts left: %i"),
-        this->Attempts
-    );
+        this->Attempts);
 
     PrintLine(message);
 }
 
-void UBullCowCartridge::SetupGuessParams()
+void UBullCowCartridge::SetupGuessingGame()
 {
+    this->GameHasEnded = false;
     this->Secret = "Pioneer";
-    this->Attempts = 3;
+    this->ResetAttempts();
+
+    PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
 }
 
 FString UBullCowCartridge::ValidateGuess(FString Guess)
@@ -58,13 +81,20 @@ FString UBullCowCartridge::ValidateGuess(FString Guess)
     {
         return FString::Printf(
             TEXT("Invalid length. Hint: length is %i"),
-            secretLength
-        );
+            secretLength);
     }
 
     return {};
 }
 
-void  UBullCowCartridge::PrintWelcomeMessage() {
-    PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
+void UBullCowCartridge::EndGame()
+{
+    this->GameHasEnded = true;
+    PrintLine(TEXT("No attempts left."));
+    PrintLine(TEXT("Press enter to start a new one."));
+}
+
+void UBullCowCartridge::ResetAttempts()
+{
+    this->Attempts = this->Secret.Len();
 }

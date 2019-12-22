@@ -14,9 +14,12 @@ class BULLCOWGAME_API UBullCowCartridge : public UCartridge
 	GENERATED_BODY()
 
 	public:
-	void SetupGuessParams();
-	void PrintWelcomeMessage();
-	void handleInvalidGuess(FString message);
+	void SetupGuessingGame();
+	void HandleInvalidGuess(FString message);
+	void ResetAttempts();
+	bool GameHasEnded;
+	void EndGame();
+	void HandleGuessingAttempt(FString Guess);
 
 	virtual void BeginPlay() override;
 	virtual void OnInput(const FString& Input) override;
