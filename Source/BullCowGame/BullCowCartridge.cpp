@@ -8,7 +8,7 @@ void UBullCowCartridge::BeginPlay()
     SetupGuessingGame();
 }
 
-void UBullCowCartridge::OnInput(const FString &Guess)
+void UBullCowCartridge::OnInput(const FString &Input)
 {
     PrintLine(TEXT("" + this->Attempts));
 
@@ -22,10 +22,10 @@ void UBullCowCartridge::OnInput(const FString &Guess)
         return SetupGuessingGame();
     }
 
-    return HandleGuessingAttempt(Guess);
+    return UBullCowCartridge::HandleGuess(Input);
 }
 
-void UBullCowCartridge::HandleGuessingAttempt(FString Guess)
+void UBullCowCartridge::HandleGuess(FString Guess)
 {
     FString validationMessage = this->ValidateGuess(Guess);
 
@@ -53,7 +53,8 @@ void UBullCowCartridge::HandleInvalidGuess(FString validationMessage)
 
     this->Attempts--;
 
-    if(this->Attempts < 0) {
+    if (this->Attempts < 0)
+    {
         return this->EndGame();
     }
 

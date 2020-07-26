@@ -19,7 +19,7 @@ class BULLCOWGAME_API UBullCowCartridge : public UCartridge
 	void ResetAttempts();
 	bool GameHasEnded;
 	void EndGame();
-	void HandleGuessingAttempt(FString Guess);
+	void HandleGuess(FString Guess);
 
 	virtual void BeginPlay() override;
 	virtual void OnInput(const FString& Input) override;
