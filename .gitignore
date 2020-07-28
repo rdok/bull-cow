@@ -1,5 +1,6 @@
 cmake-build-debug/
 CMakeLists.txt
+Build/
 
 # IDE Settings
 Config/DefaultEditorPerProjectUserSettings.ini

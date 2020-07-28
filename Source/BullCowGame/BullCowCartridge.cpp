@@ -10,7 +10,9 @@ void UBullCowCartridge::BeginPlay()
 
 void UBullCowCartridge::OnInput(const FString &Input)
 {
-    PrintLine(TEXT("" + this->Attempts));
+    FString message = FString::Printf(TEXT("Attempts left: %i"), this->Attempts);
+
+    PrintLine(message);
 
     if (!this->GameHasEnded && this->Attempts == 0)
     {
