@@ -1,3 +1,6 @@
+.aws-sam
+samconfig.toml
+
 cmake-build-debug/
 CMakeLists.txt
 Build/
@@ -53,7 +56,6 @@ Config/DefaultEditorPerProjectUserSettings.ini
 *.suo
 *.opensdf
 *.sdf
-*.VC.db
 *.VC.opendb
 
 # Precompiled Assets
