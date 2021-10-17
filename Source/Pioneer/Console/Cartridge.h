@@ -8,7 +8,7 @@
 
 
 UCLASS(Abstract)
-class BULLCOWGAME_API UCartridge : public UActorComponent
+class PIONEER_API UCartridge : public UActorComponent
 {
 	GENERATED_BODY()
 public:
