@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Manages domain, certificate, CDN & deployment bucket.
+Description: Manages domain, certificate, CDN & deployment bucket for the HTML.
 Transform: AWS::Serverless-2016-10-31
 Parameters:
   DomainName:
