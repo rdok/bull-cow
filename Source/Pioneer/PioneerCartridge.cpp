@@ -1,14 +1,14 @@
-#include "BullCowCartridge.h"
+#include "PioneerCartridge.h"
 #include <string>
 
-void UBullCowCartridge::BeginPlay()
+void UPioneerCartridge::BeginPlay()
 {
     Super::BeginPlay();
 
     SetupGuessingGame();
 }
 
-void UBullCowCartridge::OnInput(const FString &Input)
+void UPioneerCartridge::OnInput(const FString &Input)
 {
     FString message = FString::Printf(TEXT("Attempts left: %i"), this->Attempts);
 
@@ -24,10 +24,10 @@ void UBullCowCartridge::OnInput(const FString &Input)
         return SetupGuessingGame();
     }
 
-    return UBullCowCartridge::HandleGuess(Input);
+    return UPioneerCartridge::HandleGuess(Input);
 }
 
-void UBullCowCartridge::HandleGuess(FString Guess)
+void UPioneerCartridge::HandleGuess(FString Guess)
 {
     FString validationMessage = this->ValidateGuess(Guess);
 
@@ -49,7 +49,7 @@ void UBullCowCartridge::HandleGuess(FString Guess)
     PrintLine(message);
 }
 
-void UBullCowCartridge::HandleInvalidGuess(FString validationMessage)
+void UPioneerCartridge::HandleInvalidGuess(FString validationMessage)
 {
     PrintLine(validationMessage);
 
@@ -67,7 +67,7 @@ void UBullCowCartridge::HandleInvalidGuess(FString validationMessage)
     PrintLine(message);
 }
 
-void UBullCowCartridge::SetupGuessingGame()
+void UPioneerCartridge::SetupGuessingGame()
 {
     this->GameHasEnded = false;
     this->Secret = "Pioneer";
@@ -76,7 +76,7 @@ void UBullCowCartridge::SetupGuessingGame()
     PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
 }
 
-FString UBullCowCartridge::ValidateGuess(FString Guess)
+FString UPioneerCartridge::ValidateGuess(FString Guess)
 {
     const int32 secretLength = this->Secret.Len();
 
@@ -90,14 +90,14 @@ FString UBullCowCartridge::ValidateGuess(FString Guess)
     return {};
 }
 
-void UBullCowCartridge::EndGame()
+void UPioneerCartridge::EndGame()
 {
     this->GameHasEnded = true;
     PrintLine(TEXT("No attempts left."));
     PrintLine(TEXT("Press enter to start a new one."));
 }
 
-void UBullCowCartridge::ResetAttempts()
+void UPioneerCartridge::ResetAttempts()
 {
     this->Attempts = this->Secret.Len();
 }

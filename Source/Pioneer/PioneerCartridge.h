@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Console/Cartridge.h"
-#include "BullCowCartridge.generated.h"
+#include "PioneerCartridge.generated.h"
 
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class BULLCOWGAME_API UBullCowCartridge : public UCartridge
+class PIONEER_API UPioneerCartridge : public UCartridge
 {
 
 	GENERATED_BODY()
