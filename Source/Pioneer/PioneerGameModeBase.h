@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "BullCowGameGameModeBase.generated.h"
+#include "PioneerGameModeBase.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class BULLCOWGAME_API ABullCowGameGameModeBase : public AGameModeBase
+class PIONEER_API APioneerGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
