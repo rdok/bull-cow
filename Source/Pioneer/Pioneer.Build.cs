@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class BullCowGame : ModuleRules
+public class Pioneer : ModuleRules
 {
-	public BullCowGame(ReadOnlyTargetRules Target) : base(Target)
+	public Pioneer(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
