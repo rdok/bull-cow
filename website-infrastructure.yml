@@ -63,8 +63,8 @@ Resources:
     Properties:
       AccessControl: PublicRead
       WebsiteConfiguration:
-        IndexDocument: BullCowGame-HTML5-Shipping.html
-        ErrorDocument: BullCowGame-HTML5-Shipping.html
+        IndexDocument: Pioneer-HTML5-Shipping.html
+        ErrorDocument: Pioneer-HTML5-Shipping.html
   WebsiteAccessPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
