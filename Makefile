@@ -32,7 +32,7 @@ deploy-code-prod:
 
 deploy-infrastructure-test:
 	sam deploy \
-		--template-file infrastructure.yml \
+		--template-file website-infrastructure.yml \
 		--stack-name rdok-test-pioneer0 \
 		--s3-bucket "rdok-test-cicd" \
 		--s3-prefix "pioneer0" \
@@ -45,7 +45,7 @@ deploy-infrastructure-test:
 
 deploy-infrastructure-prod:
 	sam deploy \
-		--template-file infrastructure.yml \
+		--template-file website-infrastructure.yml \
 		--stack-name rdok-prod-pioneer0 \
 		--s3-bucket "rdok-prod-cicd" \
 		--s3-prefix "pioneer0" \
