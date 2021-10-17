@@ -12,7 +12,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTextUpdateSignature, FString, Text)
 struct FKey;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class BULLCOWGAME_API UTerminal : public UActorComponent
+class PIONEER_API UTerminal : public UActorComponent
 {
 	GENERATED_BODY()
 

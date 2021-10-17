@@ -3,12 +3,12 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class BullCowGameTarget : TargetRules
+public class PioneerTarget : TargetRules
 {
-	public BullCowGameTarget(TargetInfo Target) : base(Target)
+	public PioneerTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
 
-		ExtraModuleNames.AddRange( new string[] { "BullCowGame" } );
+		ExtraModuleNames.AddRange( new string[] { "Pioneer" } );
 	}
 }
