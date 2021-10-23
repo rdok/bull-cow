@@ -1,5 +1,9 @@
 export AWS_DEFAULT_REGION=us-east-1
-
+################################################################################
+# Developer
+# Run everytime a new build is ready to be tested or released to production
+# Dependency: https://docs.unrealengine.com/en-US/Platforms/HTML5/GettingStarted/index.html
+################################################################################
 deploy-code-test:
 	WEBSITE_BUCKET=$$(aws cloudformation describe-stacks \
 		--stack-name rdok-test-pioneer0 \
@@ -29,7 +33,14 @@ deploy-code-prod:
 		--include "*.html" \
 		--include "Utility.js" \
 		--include ".htaccess"
+################################################################################
+# End Developer
+################################################################################
 
+################################################################################
+# DevOps
+# Infrastructure; run once or seldom when it requires changes
+################################################################################
 deploy-infrastructure-test:
 	sam deploy \
 		--template-file website-infrastructure.yml \
@@ -55,3 +66,6 @@ deploy-infrastructure-prod:
 		--parameter-overrides \
 			DomainName=pioneer0.rdok.co.uk \
 			Route53HostedZoneId=ZSY7GT2NEDPN0
+################################################################################
+# End Infrastructure; run once or seldom when it requires changes
+################################################################################
