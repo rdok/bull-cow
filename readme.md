@@ -4,9 +4,8 @@
 
 Word guessing game with Pioneer program theme; the first attempted launch beyond Earth.
 
-### HTML Deployment
-- Use [Packaging HTML5 Projects](https://docs.unrealengine.com/en-US/Platforms/HTML5/GettingStarted/index.html) to export the assets in the `html-builds` directory from you local environment.
-- See `Makefile` for commands to deploy infrastructure & assets
+### Deployment
+See `Makefile`
 
 [test_site_badge]: https://img.shields.io/badge/test-green?style=flat-square&logo=amazon-aws
 [test_site]: https://pioneer0-test.rdok.co.uk/
