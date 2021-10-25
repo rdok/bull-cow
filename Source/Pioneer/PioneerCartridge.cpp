@@ -73,7 +73,7 @@ void UPioneerCartridge::SetupGuessingGame()
     this->Secret = "Pioneer";
     this->ResetAttempts();
 
-    PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
+    PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man? \nPress 'E' to interact."));
 }
 
 FString UPioneerCartridge::ValidateGuess(FString Guess)
