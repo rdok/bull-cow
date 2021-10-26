@@ -80,7 +80,7 @@ FString UPioneerCartridge::ValidateGuess(FString Guess)
 
     if (Guess.Len() != secretLength)
     {
-        const TCHAR* format = TEXT("Invalid length. Hint: length is %i");
+        const TCHAR *format = TEXT("Invalid length. Hint: length is %i");
         return FString::Printf(format, secretLength);
     }
 
