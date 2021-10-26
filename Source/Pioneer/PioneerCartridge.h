@@ -28,5 +28,5 @@ class PIONEER_API UPioneerCartridge : public UCartridge
 
 	private:
 	FString Secret;
-	int32 Attempts;
+	int32 NumberOfAttemptsLeft;
 };
