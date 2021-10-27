@@ -5,7 +5,7 @@ void UPioneerCartridge::BeginPlay()
 {
     Super::BeginPlay();
 
-    SetupGuessingGame();
+    SetupGame();
 }
 
 void UPioneerCartridge::OnInput(const FString &Input)
@@ -21,7 +21,7 @@ void UPioneerCartridge::OnInput(const FString &Input)
 
     if (this->GameHasEnded)
     {
-        return SetupGuessingGame();
+        return SetupGame();
     }
 
     return UPioneerCartridge::HandleGuess(Input);
@@ -64,7 +64,7 @@ void UPioneerCartridge::HandleInvalidGuess(FString validationMessage)
     PrintLine(message);
 }
 
-void UPioneerCartridge::SetupGuessingGame()
+void UPioneerCartridge::SetupGame()
 {
     this->GameHasEnded = false;
     this->Secret = TEXT("Pioneer");
