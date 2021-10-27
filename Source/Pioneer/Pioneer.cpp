@@ -3,4 +3,4 @@
 #include "Pioneer.h"
 #include "Modules/ModuleManager.h"
 
-IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, Pioneer, "Pioneer" );
+IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, Pioneer, "Pioneer");
