@@ -16,28 +16,30 @@ void UTerminal::BeginPlay()
 
 void UTerminal::ActivateTerminal()
 {
-    FInputKeyBinding PressedBinding(EKeys::AnyKey, EInputEvent::IE_Pressed);
-    PressedBinding.KeyDelegate.BindDelegate(this, &UTerminal::OnKeyDown);
+	FInputKeyBinding PressedBinding(EKeys::AnyKey, EInputEvent::IE_Pressed);
+	PressedBinding.KeyDelegate.BindDelegate(this, &UTerminal::OnKeyDown);
 
-    FInputKeyBinding RepeatBinding(EKeys::AnyKey, EInputEvent::IE_Repeat);
-    RepeatBinding.KeyDelegate.BindDelegate(this, &UTerminal::OnKeyDown);
+	FInputKeyBinding RepeatBinding(EKeys::AnyKey, EInputEvent::IE_Repeat);
+	RepeatBinding.KeyDelegate.BindDelegate(this, &UTerminal::OnKeyDown);
 
-	if (GetOwner()->InputComponent == nullptr) return;
+	if (GetOwner()->InputComponent == nullptr)
+		return;
 
-    PressedBindingIndex = GetOwner()->InputComponent->KeyBindings.Emplace(MoveTemp(PressedBinding));
-    RepeatBindingIndex = GetOwner()->InputComponent->KeyBindings.Emplace(MoveTemp(RepeatBinding));
+	PressedBindingIndex = GetOwner()->InputComponent->KeyBindings.Emplace(MoveTemp(PressedBinding));
+	RepeatBindingIndex = GetOwner()->InputComponent->KeyBindings.Emplace(MoveTemp(RepeatBinding));
 }
 
 void UTerminal::DeactivateTerminal() const
 {
-	if (GetOwner()->InputComponent == nullptr) return;
-	
+	if (GetOwner()->InputComponent == nullptr)
+		return;
+
 	// Must do in this order as RepeatBindingIndex > PressedBindingIndex so would change when first is removed
 	GetOwner()->InputComponent->KeyBindings.RemoveAt(RepeatBindingIndex);
 	GetOwner()->InputComponent->KeyBindings.RemoveAt(PressedBindingIndex);
 }
 
-void UTerminal::PrintLine(const FString& Line)
+void UTerminal::PrintLine(const FString &Line)
 {
 	FString Input = Line;
 	FString Left, Right;
@@ -45,7 +47,7 @@ void UTerminal::PrintLine(const FString& Line)
 	{
 		Buffer.Emplace(Left);
 		Input = Right;
-	} 
+	}
 	Buffer.Emplace(Input);
 	UpdateText();
 }
@@ -68,7 +70,7 @@ FString UTerminal::GetScreenText() const
 	return JoinWithNewline(WrappedLines);
 }
 
-TArray<FString> UTerminal::WrapLines(const TArray<FString>& Lines) const
+TArray<FString> UTerminal::WrapLines(const TArray<FString> &Lines) const
 {
 	TArray<FString> WrappedLines;
 	for (auto &&Line : Lines)
@@ -78,13 +80,12 @@ TArray<FString> UTerminal::WrapLines(const TArray<FString>& Lines) const
 		{
 			WrappedLines.Add(CurrentLine.Left(MaxColumns));
 			CurrentLine = CurrentLine.RightChop(MaxColumns);
-		}
-		while (CurrentLine.Len() > 0);
+		} while (CurrentLine.Len() > 0);
 	}
 	return WrappedLines;
 }
 
-void UTerminal::Truncate(TArray<FString>& Lines) const
+void UTerminal::Truncate(TArray<FString> &Lines) const
 {
 	while (Lines.Num() > MaxLines)
 	{
@@ -92,7 +93,7 @@ void UTerminal::Truncate(TArray<FString>& Lines) const
 	}
 }
 
-FString UTerminal::JoinWithNewline(const TArray<FString>& Lines) const
+FString UTerminal::JoinWithNewline(const TArray<FString> &Lines) const
 {
 	FString Result;
 	for (auto &&Line : Lines)
@@ -114,8 +115,8 @@ void UTerminal::OnKeyDown(FKey Key)
 		Backspace();
 	}
 
-    const FString KeyString = GetKeyString(Key);
-    const FModifierKeysState KeyState = FSlateApplication::Get().GetModifierKeys();
+	const FString KeyString = GetKeyString(Key);
+	const FModifierKeysState KeyState = FSlateApplication::Get().GetModifierKeys();
 	if (KeyState.IsShiftDown() || KeyState.AreCapsLocked())
 	{
 		InputLine += KeyString.ToUpper();
@@ -128,7 +129,6 @@ void UTerminal::OnKeyDown(FKey Key)
 	UpdateText();
 }
 
-
 void UTerminal::AcceptInputLine()
 {
 	Buffer.Emplace(GPrompt + InputLine);
@@ -138,21 +138,20 @@ void UTerminal::AcceptInputLine()
 		Cartridge->OnInput(InputLine);
 	}
 	InputLine = TEXT("");
-
 }
 
 void UTerminal::Backspace()
 {
 	if (InputLine.Len() > 0)
 	{
-		InputLine.RemoveAt(InputLine.Len()-1);
+		InputLine.RemoveAt(InputLine.Len() - 1);
 	}
 }
 
 FString UTerminal::GetKeyString(FKey Key) const
 {
-	const uint32* KeyCode = nullptr;
-	const uint32* CharCode = nullptr;
+	const uint32 *KeyCode = nullptr;
+	const uint32 *CharCode = nullptr;
 	FInputKeyManager::Get().GetCodesFromKey(Key, KeyCode, CharCode);
 	if (CharCode != nullptr)
 	{
