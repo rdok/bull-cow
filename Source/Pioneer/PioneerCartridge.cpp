@@ -5,7 +5,7 @@ void UPioneerCartridge::BeginPlay()
 {
     Super::BeginPlay();
 
-    SetupGame();
+    InitialiseGame();
 }
 
 void UPioneerCartridge::OnInput(const FString &Input)
@@ -14,14 +14,14 @@ void UPioneerCartridge::OnInput(const FString &Input)
     FString message = FString::Printf(format, this->NumberOfAttemptsLeft);
     PrintLine(message);
 
-    if (!this->GameHasEnded && this->NumberOfAttemptsLeft == 0)
+    if (!this->bGameHasEnded && this->NumberOfAttemptsLeft == 0)
     {
         return this->EndGame();
     }
 
-    if (this->GameHasEnded)
+    if (this->bGameHasEnded)
     {
-        return SetupGame();
+        return InitialiseGame();
     }
 
     return UPioneerCartridge::HandleGuess(Input);
@@ -44,7 +44,6 @@ void UPioneerCartridge::HandleGuess(FString Guess)
 
     const TCHAR *format = TEXT("Nice! The answer is %s");
     FString message = FString::Printf(format, *this->Secret);
-
     PrintLine(message);
 }
 
@@ -64,24 +63,24 @@ void UPioneerCartridge::HandleInvalidGuess(FString validationMessage)
     PrintLine(message);
 }
 
-void UPioneerCartridge::SetupGame()
+void UPioneerCartridge::InitialiseGame()
 {
-    this->GameHasEnded = false;
+    this->bGameHasEnded = false;
     this->Secret = TEXT("Pioneer");
     this->ResetAttempts();
 
     PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
-    PrintLine(TEXT("Press 'E' to interact."));
+    PrintLine(TEXT("Press 'Tab' to interact."));
 }
 
 FString UPioneerCartridge::ValidateGuess(FString Guess)
 {
-    const int32 secretLength = this->Secret.Len();
+    const uint8 secret_length = this->Secret.Len();
 
-    if (Guess.Len() != secretLength)
+    if (Guess.Len() != secret_length)
     {
         const TCHAR *format = TEXT("Invalid length. Hint: length is %i");
-        return FString::Printf(format, secretLength);
+        return FString::Printf(format, secret_length);
     }
 
     return {};
@@ -89,7 +88,7 @@ FString UPioneerCartridge::ValidateGuess(FString Guess)
 
 void UPioneerCartridge::EndGame()
 {
-    this->GameHasEnded = true;
+    this->bGameHasEnded = true;
     PrintLine(TEXT("No attempts left."));
     PrintLine(TEXT("Press enter to start a new one."));
 }

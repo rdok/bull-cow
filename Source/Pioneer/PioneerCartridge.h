@@ -11,15 +11,16 @@ class PIONEER_API UPioneerCartridge : public UCartridge
 	GENERATED_BODY()
 
 public:
-	void SetupGame();
+	void InitialiseGame();
 	void HandleInvalidGuess(FString message);
 	void ResetAttempts();
-	bool GameHasEnded;
 	void EndGame();
 	void HandleGuess(FString Guess);
 
 	virtual void BeginPlay() override;
 	virtual void OnInput(const FString &Input) override;
+
+	bool bGameHasEnded;
 
 	FString ValidateGuess(FString Response);
 
