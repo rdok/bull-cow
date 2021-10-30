@@ -71,17 +71,17 @@ void UPioneerCartridge::InitialiseGame()
     this->ResetAttempts();
 
     PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
-    PrintLine(TEXT("Press 'E' to interact."));
+    PrintLine(TEXT("Press 'Tab' to interact."));
 }
 
 FString UPioneerCartridge::ValidateGuess(FString Guess)
 {
-    const int32 secretLength = this->Secret.Len();
+    const uint8 secret_length = this->Secret.Len();
 
-    if (Guess.Len() != secretLength)
+    if (Guess.Len() != secret_length)
     {
         const TCHAR *format = TEXT("Invalid length. Hint: length is %i");
-        return FString::Printf(format, secretLength);
+        return FString::Printf(format, secret_length);
     }
 
     return {};
