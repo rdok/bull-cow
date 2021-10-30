@@ -14,12 +14,12 @@ void UPioneerCartridge::OnInput(const FString &Input)
     FString message = FString::Printf(format, this->NumberOfAttemptsLeft);
     PrintLine(message);
 
-    if (!this->GameHasEnded && this->NumberOfAttemptsLeft == 0)
+    if (!this->bGameHasEnded && this->NumberOfAttemptsLeft == 0)
     {
         return this->EndGame();
     }
 
-    if (this->GameHasEnded)
+    if (this->bGameHasEnded)
     {
         return InitialiseGame();
     }
@@ -44,7 +44,6 @@ void UPioneerCartridge::HandleGuess(FString Guess)
 
     const TCHAR *format = TEXT("Nice! The answer is %s");
     FString message = FString::Printf(format, *this->Secret);
-
     PrintLine(message);
 }
 
@@ -66,7 +65,7 @@ void UPioneerCartridge::HandleInvalidGuess(FString validationMessage)
 
 void UPioneerCartridge::InitialiseGame()
 {
-    this->GameHasEnded = false;
+    this->bGameHasEnded = false;
     this->Secret = TEXT("Pioneer");
     this->ResetAttempts();
 
@@ -89,7 +88,7 @@ FString UPioneerCartridge::ValidateGuess(FString Guess)
 
 void UPioneerCartridge::EndGame()
 {
-    this->GameHasEnded = true;
+    this->bGameHasEnded = true;
     PrintLine(TEXT("No attempts left."));
     PrintLine(TEXT("Press enter to start a new one."));
 }
