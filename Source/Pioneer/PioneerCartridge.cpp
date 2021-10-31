@@ -10,7 +10,7 @@ void UPioneerCartridge::BeginPlay()
 
 void UPioneerCartridge::OnInput(const FString &user_input)
 {
-    const TCHAR *format = TEXT("Attempts left: %i");
+    const TCHAR format[] = TEXT("Attempts left: %i");
     const FString message = FString::Printf(format, this->NumberOfAttemptsLeft);
     PrintLine(message);
 
@@ -42,7 +42,7 @@ void UPioneerCartridge::HandleGuess(FString user_input_guess)
 
     this->ResetAttempts();
 
-    const TCHAR *format = TEXT("Nice! The answer is %s");
+    const TCHAR format[] = TEXT("Nice! The answer is %s");
     const FString message = FString::Printf(format, *this->Secret);
     PrintLine(message);
 }
@@ -61,6 +61,8 @@ void UPioneerCartridge::HandleInvalidGuess(FString validationMessage)
     const TCHAR format[] = TEXT("Attempts left: %i");
     const FString message = FString::Printf(format, this->NumberOfAttemptsLeft);
     PrintLine(message);
+
+    this->PrintHints();
 }
 
 void UPioneerCartridge::InitialiseGame()
@@ -71,6 +73,18 @@ void UPioneerCartridge::InitialiseGame()
 
     PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
     PrintLine(TEXT("Press 'Tab' to interact."));
+
+    this->PrintHints();
+}
+
+void UPioneerCartridge::PrintHints()
+{
+    const TCHAR first_hint_format[] = TEXT("Hint: first character is %c");
+    FString message = FString::Printf(first_hint_format, this->Secret[0]);
+
+    const TCHAR second_hint_format[] = TEXT("\nHint: third character is %c");
+    message += FString::Printf(second_hint_format, this->Secret[2]);
+    PrintLine(message);
 }
 
 FString UPioneerCartridge::ValidateGuess(FString user_input_guess)
@@ -79,18 +93,7 @@ FString UPioneerCartridge::ValidateGuess(FString user_input_guess)
 
     if (user_input_guess.Len() != secret_length)
     {
-        const TCHAR *format = TEXT("Invalid length. Hint: length is %i");
-        return FString::Printf(format, secret_length);
-    }
-    else if (user_input_guess != this->Secret)
-    {
-        const TCHAR firstCharacterFormat[] = TEXT("Invalid word.\nHint: first character is %c");
-        FString message = FString::Printf(firstCharacterFormat, this->Secret[0]);
-
-        const TCHAR secondCharacterFormat[] = TEXT("\nHint: third character is %c");
-        message = message + FString::Printf(secondCharacterFormat, this->Secret[2]);
-
-        return message;
+        return FString::Printf(TEXT("Invalid length."));
     }
 
     return {};

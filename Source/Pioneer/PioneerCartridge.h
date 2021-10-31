@@ -16,6 +16,7 @@ public:
 	void ResetAttempts();
 	void EndGame();
 	void HandleGuess(FString UserGuessInput);
+	void PrintHints();
 
 	virtual void BeginPlay() override;
 	virtual void OnInput(const FString &Input) override;
