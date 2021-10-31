@@ -58,7 +58,7 @@ void UPioneerCartridge::HandleInvalidGuess(FString validationMessage)
         return this->EndGame();
     }
 
-    const TCHAR *format = TEXT("Attempts left: %i");
+    const TCHAR format[] = TEXT("Attempts left: %i");
     const FString message = FString::Printf(format, this->NumberOfAttemptsLeft);
     PrintLine(message);
 }
@@ -81,6 +81,11 @@ FString UPioneerCartridge::ValidateGuess(FString user_input_guess)
     {
         const TCHAR *format = TEXT("Invalid length. Hint: length is %i");
         return FString::Printf(format, secret_length);
+    }
+    else if (user_input_guess != this->Secret)
+    {
+        const TCHAR format[] = TEXT("Invalid word. Hint: first character is %c");
+        return FString::Printf(format, this->Secret[0]);
     }
 
     return {};
