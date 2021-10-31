@@ -84,8 +84,13 @@ FString UPioneerCartridge::ValidateGuess(FString user_input_guess)
     }
     else if (user_input_guess != this->Secret)
     {
-        const TCHAR format[] = TEXT("Invalid word. Hint: first character is %c");
-        return FString::Printf(format, this->Secret[0]);
+        const TCHAR firstCharacterFormat[] = TEXT("Invalid word.\nHint: first character is %c");
+        FString message = FString::Printf(firstCharacterFormat, this->Secret[0]);
+
+        const TCHAR secondCharacterFormat[] = TEXT("\nHint: third character is %c");
+        message = message + FString::Printf(secondCharacterFormat, this->Secret[2]);
+
+        return message;
     }
 
     return {};
