@@ -15,7 +15,7 @@ public:
 	void HandleInvalidGuess(FString message);
 	void ResetAttempts();
 	void EndGame();
-	void HandleGuess(FString Guess);
+	void HandleGuess(FString UserGuessInput);
 
 	virtual void BeginPlay() override;
 	virtual void OnInput(const FString &Input) override;

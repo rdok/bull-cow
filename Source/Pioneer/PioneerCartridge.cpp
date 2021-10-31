@@ -8,10 +8,10 @@ void UPioneerCartridge::BeginPlay()
     InitialiseGame();
 }
 
-void UPioneerCartridge::OnInput(const FString &Input)
+void UPioneerCartridge::OnInput(const FString &user_input)
 {
     const TCHAR *format = TEXT("Attempts left: %i");
-    FString message = FString::Printf(format, this->NumberOfAttemptsLeft);
+    const FString message = FString::Printf(format, this->NumberOfAttemptsLeft);
     PrintLine(message);
 
     if (!this->bGameHasEnded && this->NumberOfAttemptsLeft == 0)
@@ -24,15 +24,15 @@ void UPioneerCartridge::OnInput(const FString &Input)
         return InitialiseGame();
     }
 
-    return UPioneerCartridge::HandleGuess(Input);
+    return UPioneerCartridge::HandleGuess(user_input);
 }
 
-void UPioneerCartridge::HandleGuess(FString Guess)
+void UPioneerCartridge::HandleGuess(FString user_input_guess)
 {
-    FString validationMessage = this->ValidateGuess(Guess);
+    const FString validationMessage = this->ValidateGuess(user_input_guess);
 
     ClearScreen();
-    PrintLine(Guess);
+    PrintLine(user_input_guess);
 
     if (!validationMessage.IsEmpty())
     {
@@ -43,7 +43,7 @@ void UPioneerCartridge::HandleGuess(FString Guess)
     this->ResetAttempts();
 
     const TCHAR *format = TEXT("Nice! The answer is %s");
-    FString message = FString::Printf(format, *this->Secret);
+    const FString message = FString::Printf(format, *this->Secret);
     PrintLine(message);
 }
 
@@ -59,7 +59,7 @@ void UPioneerCartridge::HandleInvalidGuess(FString validationMessage)
     }
 
     const TCHAR *format = TEXT("Attempts left: %i");
-    FString message = FString::Printf(format, this->NumberOfAttemptsLeft);
+    const FString message = FString::Printf(format, this->NumberOfAttemptsLeft);
     PrintLine(message);
 }
 
@@ -73,11 +73,11 @@ void UPioneerCartridge::InitialiseGame()
     PrintLine(TEXT("Press 'Tab' to interact."));
 }
 
-FString UPioneerCartridge::ValidateGuess(FString Guess)
+FString UPioneerCartridge::ValidateGuess(FString user_input_guess)
 {
     const uint8 secret_length = this->Secret.Len();
 
-    if (Guess.Len() != secret_length)
+    if (user_input_guess.Len() != secret_length)
     {
         const TCHAR *format = TEXT("Invalid length. Hint: length is %i");
         return FString::Printf(format, secret_length);
