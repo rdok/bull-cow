@@ -89,14 +89,37 @@ void UPioneerCartridge::PrintHints()
 
 FString UPioneerCartridge::ValidateGuess(FString user_input_guess)
 {
-    const uint8 secret_length = this->Secret.Len();
+    const FString secret = this->Secret;
+    const uint8 secret_length = secret.Len();
+
+    if (user_input_guess == secret)
+    {
+        return {};
+    }
 
     if (user_input_guess.Len() != secret_length)
     {
         return FString::Printf(TEXT("Invalid length."));
     }
 
-    return {};
+    TCHAR *format;
+    FString message;
+    bool isValidCharacter;
+
+    for (int index = 0; index < secret.Len(); index++)
+    {
+        isValidCharacter = user_input_guess[index] == secret[index];
+
+        if (isValidCharacter)
+        {
+            continue;
+        }
+
+        format = TEXT("Invalid character at position %i\n");
+        message += FString::Printf(format, index);
+    }
+
+    return message;
 }
 
 void UPioneerCartridge::EndGame()
