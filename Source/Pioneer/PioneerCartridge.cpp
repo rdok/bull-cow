@@ -10,9 +10,7 @@ void UPioneerCartridge::BeginPlay()
 
 void UPioneerCartridge::OnInput(const FString &user_input)
 {
-    const TCHAR format[] = TEXT("Attempts left: %i");
-    const FString message = FString::Printf(format, this->NumberOfAttemptsLeft);
-    PrintLine(message);
+    PrintLine(TEXT("Attempts left: %i"), this->NumberOfAttemptsLeft);
 
     if (!this->bGameHasEnded && this->NumberOfAttemptsLeft == 0)
     {
@@ -42,9 +40,7 @@ void UPioneerCartridge::HandleGuess(FString user_input_guess)
 
     this->ResetAttempts();
 
-    const TCHAR format[] = TEXT("Nice! The answer is %s");
-    const FString message = FString::Printf(format, *this->Secret);
-    PrintLine(message);
+    PrintLine(TEXT("Nice! The answer is %s"), *this->Secret);
 }
 
 void UPioneerCartridge::HandleInvalidGuess(FString validationMessage)
@@ -58,9 +54,7 @@ void UPioneerCartridge::HandleInvalidGuess(FString validationMessage)
         return this->EndGame();
     }
 
-    const TCHAR format[] = TEXT("Attempts left: %i");
-    const FString message = FString::Printf(format, this->NumberOfAttemptsLeft);
-    PrintLine(message);
+    PrintLine(TEXT("Attempts left: %i"), this->NumberOfAttemptsLeft);
 
     this->PrintHints();
 }
@@ -79,12 +73,8 @@ void UPioneerCartridge::InitialiseGame()
 
 void UPioneerCartridge::PrintHints()
 {
-    const TCHAR first_hint_format[] = TEXT("Hint: first character is %c");
-    FString message = FString::Printf(first_hint_format, this->Secret[0]);
-
-    const TCHAR second_hint_format[] = TEXT("\nHint: third character is %c");
-    message += FString::Printf(second_hint_format, this->Secret[2]);
-    PrintLine(message);
+    PrintLine(TEXT("Hint: first character is %c"), this->Secret[0]);
+    PrintLine(TEXT("Hint: third character is %c"), this->Secret[2]);
 }
 
 FString UPioneerCartridge::ValidateGuess(FString user_input_guess)
