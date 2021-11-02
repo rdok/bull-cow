@@ -16,14 +16,14 @@ public:
 	void ResetAttempts();
 	void EndGame();
 	void HandleGuess(FString UserGuessInput);
-	void PrintHints();
+	void PrintHints() const;
 
 	virtual void BeginPlay() override;
 	virtual void OnInput(const FString &Input) override;
 
 	bool bGameHasEnded;
 
-	FString ValidateGuess(FString Response);
+	FString ValidateGuess(FString Response) const;
 
 private:
 	FString Secret;
