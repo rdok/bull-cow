@@ -1,12 +1,16 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "Cartridge.h"
 #include "Terminal.h"
 #include "GameFramework/Actor.h"
+#include "Misc/Paths.h"
+#include "Misc/FileHelper.h"
 
 void UCartridge::BeginPlay()
 {
 	Super::BeginPlay();
+
+	const FString secrets_file_name = FPaths::ProjectContentDir() / TEXT("secrets.txt");
+	FFileHelper::LoadFileToStringArray(Secrets, *secrets_file_name);
+
 	Terminal = GetOwner()->FindComponentByClass<UTerminal>();
 	checkf(Terminal, TEXT("[%s]: No Terminal found"), *GetName())
 }

@@ -25,6 +25,8 @@ protected:
 	}
 	void ClearScreen() const;
 
+	TArray<FString> Secrets;
+
 private:
 	class UTerminal *Terminal;
 };
