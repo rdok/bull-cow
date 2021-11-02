@@ -62,7 +62,7 @@ void UPioneerCartridge::HandleInvalidGuess(FString validationMessage)
 void UPioneerCartridge::InitialiseGame()
 {
     this->bGameHasEnded = false;
-    this->Secret = TEXT("Pioneer");
+    this->Secret = Secrets[0];
     this->ResetAttempts();
 
     PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
