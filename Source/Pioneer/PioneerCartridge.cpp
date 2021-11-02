@@ -62,7 +62,7 @@ void UPioneerCartridge::HandleInvalidGuess(FString validationMessage)
 void UPioneerCartridge::InitialiseGame()
 {
     this->bGameHasEnded = false;
-    this->Secret = TEXT("Pioneer");
+    this->Secret = Secrets[0];
     this->ResetAttempts();
 
     PrintLine(TEXT("What was the name of the first failed probe launched to the moon by man?"));
@@ -71,13 +71,13 @@ void UPioneerCartridge::InitialiseGame()
     this->PrintHints();
 }
 
-void UPioneerCartridge::PrintHints()
+void UPioneerCartridge::PrintHints() const
 {
     PrintLine(TEXT("Hint: first character is %c"), this->Secret[0]);
     PrintLine(TEXT("Hint: third character is %c"), this->Secret[2]);
 }
 
-FString UPioneerCartridge::ValidateGuess(FString user_input_guess)
+FString UPioneerCartridge::ValidateGuess(FString user_input_guess) const
 {
     const FString secret = this->Secret;
     const uint8 secret_length = secret.Len();
