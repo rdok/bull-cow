@@ -8,7 +8,7 @@ void UCartridge::BeginPlay()
 {
 	Super::BeginPlay();
 
-	const FString secrets_file_name = FPaths::ProjectContentDir() / TEXT("secrets.txt");
+	const FString secrets_file_name = FPaths::ProjectContentDir() / TEXT("Data/secrets.txt");
 	FFileHelper::LoadFileToStringArray(Secrets, *secrets_file_name);
 
 	Terminal = GetOwner()->FindComponentByClass<UTerminal>();
